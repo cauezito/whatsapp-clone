@@ -8,16 +8,16 @@
     tools:context=".ui.login.RegisterActivity">
 
     <TextView
-        android:id="@+id/tvRegister"
+        android:id="@+id/tvSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:text="@string/action_sign_in"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/btRegister" />
 
     <EditText
         android:id="@+id/tvName"
@@ -40,7 +40,7 @@
         android:layout_width="249dp"
         android:layout_height="74dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
@@ -56,7 +56,7 @@
         android:layout_width="249dp"
         android:layout_height="74dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/prompt_password"
         android:inputType="textPassword"
@@ -68,18 +68,18 @@
         app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
 
     <Button
-        android:id="@+id/btLogin"
+        android:id="@+id/btRegister"
         android:layout_width="237dp"
         android:layout_height="54dp"
         android:layout_gravity="start"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="48dp"
         android:enabled="false"
         android:hint="@string/register"
         android:text="@string/register"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.692"
+        app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPassword" />
 </androidx.constraintlayout.widget.ConstraintLayout>
