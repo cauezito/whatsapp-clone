@@ -8,7 +8,7 @@
     tools:context=".ui.login.RegisterActivity">
 
     <TextView
-        android:id="@+id/register3"
+        android:id="@+id/tvRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -17,17 +17,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login2" />
+        app:layout_constraintTop_toBottomOf="@+id/btLogin" />
 
     <EditText
-        android:id="@+id/username2"
+        android:id="@+id/tvName"
         android:layout_width="249dp"
         android:layout_height="74dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="128dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/prompt_name"
-        android:inputType="textEmailAddress"
+        android:inputType="text"
         android:selectAllOnFocus="true"
         android:textColor="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/username3"
+        android:id="@+id/tvEmail"
         android:layout_width="249dp"
         android:layout_height="74dp"
         android:layout_marginStart="24dp"
@@ -49,26 +49,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username2" />
+        app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
     <EditText
-        android:id="@+id/username4"
+        android:id="@+id/tvPassword"
         android:layout_width="249dp"
         android:layout_height="74dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/prompt_password"
-        android:inputType="textEmailAddress"
+        android:inputType="textPassword"
         android:selectAllOnFocus="true"
         android:textColor="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username3" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
 
     <Button
-        android:id="@+id/login2"
+        android:id="@+id/btLogin"
         android:layout_width="237dp"
         android:layout_height="54dp"
         android:layout_gravity="start"
@@ -81,5 +81,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.692"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username4" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPassword" />
 </androidx.constraintlayout.widget.ConstraintLayout>
