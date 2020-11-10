@@ -56,14 +56,14 @@
         app:layout_constraintTop_toBottomOf="@+id/etEmail" />
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/btLogin"
         android:layout_width="237dp"
         android:layout_height="54dp"
         android:layout_gravity="start"
         android:layout_marginStart="48dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="48dp"
-        android:enabled="false"
+        android:enabled="true"
         android:text="@string/action_sign_in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +86,7 @@
         app:layout_constraintVertical_bias="0.3" />
 
     <TextView
-        android:id="@+id/register"
+        android:id="@+id/tvRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -94,5 +94,5 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login" />
+        app:layout_constraintTop_toBottomOf="@+id/btLogin" />
 </androidx.constraintlayout.widget.ConstraintLayout>

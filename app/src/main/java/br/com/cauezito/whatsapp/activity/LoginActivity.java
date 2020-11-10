@@ -2,43 +2,77 @@ package br.com.cauezito.whatsapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import br.com.cauezito.whatsapp.R;
+import br.com.cauezito.whatsapp.config.FirebaseConfig;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private EditText etEmail, etPassword;
+    private TextView tvRegister;
+    private Button btLogin;
+    private FirebaseAuth auth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        final EditText etEmail = findViewById(R.id.etEmail);
-        final EditText etPassword = findViewById(R.id.etPassword);
-        final Button loginButton = findViewById(R.id.login);
-        final TextView register = findViewById(R.id.register);
-        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
+        btLogin = findViewById(R.id.btLogin);
+        tvRegister = findViewById(R.id.tvRegister);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        btLogin.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
+                validateData(etEmail.getText().toString(), etPassword.getText().toString());
             }
         });
 
-        register.setOnClickListener(new View.OnClickListener() {
+        tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
                 startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+            }
+        });
+    }
+
+    private void validateData(String email, String password) {
+        if (!email.isEmpty() && !password.isEmpty()) {
+            //validate
+            login(email, password);
+        } else {
+
+        }
+    }
+
+    private void login(String email, String password) {
+        auth = FirebaseConfig.getAuth();
+
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(LoginActivity.this, "Yeah!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Nop!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
