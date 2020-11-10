@@ -1,4 +1,4 @@
-package br.com.cauezito.whatsapp.ui.login;
+package br.com.cauezito.whatsapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
