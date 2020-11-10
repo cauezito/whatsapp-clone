@@ -15,7 +15,6 @@
         android:text="@string/action_sign_in"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btRegister" />
 
@@ -69,15 +68,14 @@
 
     <Button
         android:id="@+id/btRegister"
-        android:layout_width="237dp"
+        android:layout_width="249dp"
         android:layout_height="54dp"
         android:layout_gravity="start"
         android:layout_marginStart="48dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="48dp"
-        android:enabled="false"
+        android:enabled="true"
         android:hint="@string/register"
-        android:onClick="signIn"
         android:text="@string/register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.538"
