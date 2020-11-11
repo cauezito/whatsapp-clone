@@ -17,6 +17,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseUser;
 
 import br.com.cauezito.whatsapp.R;
 import br.com.cauezito.whatsapp.config.FirebaseConfig;
@@ -26,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private TextView tvRegister;
     private Button btLogin;
-    private FirebaseAuth auth;
+    private FirebaseAuth auth = FirebaseConfig.getAuth();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,16 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = auth.getCurrentUser();
+
+        if (currentUser != null) {
+            goToHome();
+        }
+    }
+
     private void validateData(String email, String password) {
         if (!email.isEmpty() && !password.isEmpty()) {
             //TODO validate
@@ -64,8 +75,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(String email, String password) {
-        auth = FirebaseConfig.getAuth();
-
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
