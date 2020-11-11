@@ -47,7 +47,6 @@ public class LoginActivity extends AppCompatActivity {
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
                 startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
             }
         });
@@ -55,10 +54,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void validateData(String email, String password) {
         if (!email.isEmpty() && !password.isEmpty()) {
-            //validate
+            //TODO validate
             login(email, password);
         } else {
-
+            Toast.makeText(this, "Pls, fill in all fields!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -69,11 +68,16 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, "Yeah!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Logging in...", Toast.LENGTH_SHORT).show();
+                    goToHome();
                 } else {
                     Toast.makeText(LoginActivity.this, "Nop!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    private void goToHome() {
+        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
     }
 }

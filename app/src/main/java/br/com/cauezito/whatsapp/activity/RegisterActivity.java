@@ -1,13 +1,13 @@
 package br.com.cauezito.whatsapp.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -101,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
     
     private void validateData(User user){
         if(!user.getName().isEmpty() && !user.getEmail().isEmpty() && !user.getPassword().isEmpty()){
-           //validate
+            //TODO validate
             addUser(user);
         } else {
             Toast.makeText(this, "Pls, fill in all fields!", Toast.LENGTH_LONG).show();
