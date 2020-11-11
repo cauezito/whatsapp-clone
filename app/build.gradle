@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "br.com.cauezito.whatsapp"
-        minSdkVersion 16
+        minSdkVersion 18
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -46,4 +46,5 @@ dependencies {
     compile 'com.google.firebase:firebase-database:18.0.0'
     compile 'com.google.firebase:firebase-storage:18.0.0'
     compile 'com.google.firebase:firebase-auth:18.0.0'
+
 }
