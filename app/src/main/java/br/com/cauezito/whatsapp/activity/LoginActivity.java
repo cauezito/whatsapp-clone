@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
 import br.com.cauezito.whatsapp.R;
 import br.com.cauezito.whatsapp.config.FirebaseConfig;
@@ -71,10 +73,26 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Logging in...", Toast.LENGTH_SHORT).show();
                     goToHome();
                 } else {
-                    Toast.makeText(LoginActivity.this, "Nop!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, showError(task), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    private String showError(Task<AuthResult> task) {
+        String exception = "";
+
+        try {
+            throw task.getException();
+        } catch (FirebaseAuthInvalidUserException e) {
+            exception = "User not registered!";
+        } catch (FirebaseAuthInvalidCredentialsException e) {
+            exception = "Email and password do not match";
+        } catch (Exception e) {
+            exception = "Oh, sorry! Unable to log in at the moment";
+            e.printStackTrace();
+        }
+        return exception;
     }
 
     private void goToHome() {
