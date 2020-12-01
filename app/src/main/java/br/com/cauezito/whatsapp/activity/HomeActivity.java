@@ -1,5 +1,6 @@
 package br.com.cauezito.whatsapp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
         auth = FirebaseConfig.getAuth();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("WhatsApp");
         setSupportActionBar(toolbar);
 
         //abas
@@ -61,11 +63,18 @@ public class HomeActivity extends AppCompatActivity {
                 logout();
                 finish();
                 break;
+            case R.id.config:
+                goToConfig();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void logout() {
         auth.signOut();
+    }
+
+    private void goToConfig() {
+        startActivity(new Intent(HomeActivity.this, ConfigActivity.class));
     }
 }
