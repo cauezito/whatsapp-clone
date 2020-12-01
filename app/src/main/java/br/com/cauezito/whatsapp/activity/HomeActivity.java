@@ -8,11 +8,17 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 import br.com.cauezito.whatsapp.R;
 import br.com.cauezito.whatsapp.config.FirebaseConfig;
+import br.com.cauezito.whatsapp.fragment.ContactsFragment;
+import br.com.cauezito.whatsapp.fragment.ConversationsFragment;
 
 public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth auth;
@@ -22,10 +28,23 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        auth = FirebaseConfig.getAuth();
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        auth = FirebaseConfig.getAuth();
+        //abas
+        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+                getSupportFragmentManager(), FragmentPagerItems.with(this)
+                .add("Conversations", ConversationsFragment.class).add("Contacts", ContactsFragment.class).create()
+        );
+
+        ViewPager viewPager = findViewById(R.id.viewpager);
+        viewPager.setAdapter(adapter);
+
+        SmartTabLayout viewPagerTab = findViewById(R.id.viewpagertab);
+        viewPagerTab.setViewPager(viewPager);
+
     }
 
     @Override
