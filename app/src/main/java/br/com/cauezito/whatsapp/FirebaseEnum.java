@@ -1,17 +1,16 @@
 package br.com.cauezito.whatsapp;
 
-public enum FirebaseEnums {
+public enum FirebaseEnum {
     USERS("users");
 
     private String name;
 
-    FirebaseEnums(String name) {
+    FirebaseEnum(String name) {
         this.name = name;
     }
 
     public String getName() {
         return name;
     }
-
 
 }

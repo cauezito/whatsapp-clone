@@ -5,7 +5,7 @@ import com.google.firebase.database.Exclude;
 
 import java.io.Serializable;
 
-import br.com.cauezito.whatsapp.FirebaseEnums;
+import br.com.cauezito.whatsapp.FirebaseEnum;
 import br.com.cauezito.whatsapp.config.FirebaseConfig;
 
 public class User implements Serializable {
@@ -16,7 +16,7 @@ public class User implements Serializable {
 
     public void save() {
         DatabaseReference firebaseRef = FirebaseConfig.getDatabaseReference();
-        DatabaseReference user = firebaseRef.child(FirebaseEnums.USERS.getName()).child(getId());
+        DatabaseReference user = firebaseRef.child(FirebaseEnum.USERS.getName()).child(getId());
 
         user.setValue(this);
     }
