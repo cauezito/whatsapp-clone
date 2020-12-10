@@ -75,6 +75,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void goToConfig() {
-        startActivity(new Intent(HomeActivity.this, ConfigActivity.class));
+        startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
     }
 }

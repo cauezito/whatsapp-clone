@@ -7,12 +7,12 @@ import androidx.appcompat.widget.Toolbar;
 
 import br.com.cauezito.whatsapp.R;
 
-public class ConfigActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_config);
+        setContentView(R.layout.activity_settings);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Settings");
