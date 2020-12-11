@@ -19,15 +19,26 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
+
 import br.com.cauezito.whatsapp.ActionsEnum;
+import br.com.cauezito.whatsapp.FirebaseEnum;
 import br.com.cauezito.whatsapp.PermissionsEnum;
 import br.com.cauezito.whatsapp.R;
+import br.com.cauezito.whatsapp.config.FirebaseConfig;
 import br.com.cauezito.whatsapp.helper.Permission;
+import br.com.cauezito.whatsapp.helper.UserFirebase;
 
 public class SettingsActivity extends AppCompatActivity {
 
     private ImageButton ibCamera, ibStorage;
     private ImageView ivPhoto;
+    private String userId;
 
     private String[] permissions = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -50,6 +61,8 @@ public class SettingsActivity extends AppCompatActivity {
         ibCamera = findViewById(R.id.ibCamera);
         ibStorage = findViewById(R.id.ibStorage);
         ivPhoto = findViewById(R.id.ivPhoto);
+
+        userId = UserFirebase.getUserId();
 
         setOnClickButtons();
     }
@@ -98,12 +111,36 @@ public class SettingsActivity extends AppCompatActivity {
 
                 if (image != null) {
                     ivPhoto.setImageBitmap(image);
+                    saveProfilePic(image);
                 }
 
             } catch (Exception e) {
                 Toast.makeText(this, "Couldn't retrieve image", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void saveProfilePic(Bitmap image) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+        byte[] imageData = baos.toByteArray();
+
+        StorageReference imageRef = FirebaseConfig.getFirebaseStorage().child(FirebaseEnum.IMAGES.getName()).child(FirebaseEnum.PROFILE.getName())
+                .child(userId + ".jpeg");
+
+        UploadTask uploadTask = imageRef.putBytes(imageData);
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(SettingsActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(SettingsActivity.this, "Success !", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

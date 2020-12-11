@@ -1,7 +1,12 @@
 package br.com.cauezito.whatsapp;
 
 public enum FirebaseEnum {
-    USERS("users");
+    USERS("users"),
+
+    //STORAGE
+    IMAGES("images"),
+    PROFILE("profile"),
+    PROFILE_PIC_DEFAULT("profile.jpeg");
 
     private String name;
 
