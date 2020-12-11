@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -19,8 +20,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -38,7 +41,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     private ImageButton ibCamera, ibStorage;
     private ImageView ivPhoto;
+    private FirebaseUser user;
     private String userId;
+    private EditText edtName;
 
     private String[] permissions = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -61,6 +66,18 @@ public class SettingsActivity extends AppCompatActivity {
         ibCamera = findViewById(R.id.ibCamera);
         ibStorage = findViewById(R.id.ibStorage);
         ivPhoto = findViewById(R.id.ivPhoto);
+        edtName = findViewById(R.id.edtName);
+
+        user = UserFirebase.getUser();
+        Uri url = user.getPhotoUrl();
+
+        if (url != null) {
+            Glide.with(SettingsActivity.this).load(url).into(ivPhoto);
+        } else {
+            ivPhoto.setImageResource(R.drawable.default_picture);
+        }
+
+        edtName.setText(user.getDisplayName());
 
         userId = UserFirebase.getUserId();
 
@@ -138,9 +155,18 @@ public class SettingsActivity extends AppCompatActivity {
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(SettingsActivity.this, "Success !", Toast.LENGTH_SHORT).show();
+                taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        changePicture(uri);
+                    }
+                });
             }
         });
+    }
+
+    private void changePicture(Uri image) {
+        UserFirebase.changePicture(image);
     }
 
     @Override

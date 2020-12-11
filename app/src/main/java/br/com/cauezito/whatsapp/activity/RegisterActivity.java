@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import br.com.cauezito.whatsapp.R;
 import br.com.cauezito.whatsapp.config.FirebaseConfig;
 import br.com.cauezito.whatsapp.helper.Base64Custom;
+import br.com.cauezito.whatsapp.helper.UserFirebase;
 import br.com.cauezito.whatsapp.model.User;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -67,6 +68,8 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             Toast.makeText(RegisterActivity.this, "User successfully registered!", Toast.LENGTH_SHORT).show();
+                            UserFirebase.changeName(user.getName());
+
                             clearFields();
 
                             try {
