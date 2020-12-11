@@ -3,18 +3,25 @@ package br.com.cauezito.whatsapp.activity;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import br.com.cauezito.whatsapp.ActionsEnum;
 import br.com.cauezito.whatsapp.PermissionsEnum;
 import br.com.cauezito.whatsapp.R;
 import br.com.cauezito.whatsapp.helper.Permission;
 
 public class SettingsActivity extends AppCompatActivity {
+
+    private ImageButton ibCamera, ibStorage;
 
     private String[] permissions = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -33,6 +40,31 @@ public class SettingsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ibCamera = findViewById(R.id.ibCamera);
+        ibStorage = findViewById(R.id.ibStorage);
+
+        setOnClickButtons();
+    }
+
+    private void setOnClickButtons() {
+        ibCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (i.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(i, ActionsEnum.NEW_PROFILE_PHOTO_BY_CAM);
+                }
+
+            }
+        });
+
+        ibStorage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
