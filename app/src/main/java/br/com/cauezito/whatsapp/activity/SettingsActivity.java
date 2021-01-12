@@ -36,6 +36,7 @@ import br.com.cauezito.whatsapp.R;
 import br.com.cauezito.whatsapp.config.FirebaseConfig;
 import br.com.cauezito.whatsapp.helper.Permission;
 import br.com.cauezito.whatsapp.helper.UserFirebase;
+import br.com.cauezito.whatsapp.model.User;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -44,6 +45,7 @@ public class SettingsActivity extends AppCompatActivity {
     private FirebaseUser user;
     private String userId;
     private EditText edtName;
+    private User userOn;
 
     private String[] permissions = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -72,15 +74,16 @@ public class SettingsActivity extends AppCompatActivity {
         user = UserFirebase.getUser();
         Uri url = user.getPhotoUrl();
 
+        edtName.setText(user.getDisplayName());
+
+        userId = UserFirebase.getUserId();
+        userOn = UserFirebase.getUserOn();
+
         if (url != null) {
             Glide.with(SettingsActivity.this).load(url).into(ivPhoto);
         } else {
             ivPhoto.setImageResource(R.drawable.default_picture);
         }
-
-        edtName.setText(user.getDisplayName());
-
-        userId = UserFirebase.getUserId();
 
         setOnClickButtons();
     }
@@ -113,6 +116,8 @@ public class SettingsActivity extends AppCompatActivity {
                 String name = edtName.getText().toString();
 
                 if (UserFirebase.changeName(name)) {
+                    userOn.setName(name);
+                    userOn.update();
                     Toast.makeText(SettingsActivity.this, "Success!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(SettingsActivity.this, "Failed! Pls, try again.", Toast.LENGTH_SHORT).show();
@@ -180,7 +185,11 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void changePicture(Uri image) {
-        UserFirebase.changePicture(image);
+        if (UserFirebase.changePicture(image)) {
+            userOn.setPhoto(image.toString());
+            userOn.update();
+            Toast.makeText(this, "Updated image! :)", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
