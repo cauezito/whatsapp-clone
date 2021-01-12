@@ -67,7 +67,7 @@
             android:textColorHint="#000000" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/ivSalvarNome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|clip_vertical"

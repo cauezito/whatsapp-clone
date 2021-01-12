@@ -40,7 +40,7 @@ import br.com.cauezito.whatsapp.helper.UserFirebase;
 public class SettingsActivity extends AppCompatActivity {
 
     private ImageButton ibCamera, ibStorage;
-    private ImageView ivPhoto;
+    private ImageView ivPhoto, ivSalvarNome;
     private FirebaseUser user;
     private String userId;
     private EditText edtName;
@@ -67,6 +67,7 @@ public class SettingsActivity extends AppCompatActivity {
         ibStorage = findViewById(R.id.ibStorage);
         ivPhoto = findViewById(R.id.ivPhoto);
         edtName = findViewById(R.id.edtName);
+        ivSalvarNome = findViewById(R.id.ivSalvarNome);
 
         user = UserFirebase.getUser();
         Uri url = user.getPhotoUrl();
@@ -102,6 +103,19 @@ public class SettingsActivity extends AppCompatActivity {
                 Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 if (i.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(i, ActionsEnum.NEW_PROFILE_PHOTO_BY_STORAGE);
+                }
+            }
+        });
+
+        ivSalvarNome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nome = edtName.getText().toString();
+
+                if (UserFirebase.changeName(nome)) {
+                    Toast.makeText(SettingsActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SettingsActivity.this, "Failed! Pls, try again.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
