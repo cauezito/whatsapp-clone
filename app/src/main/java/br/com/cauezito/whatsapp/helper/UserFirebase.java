@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 import br.com.cauezito.whatsapp.config.FirebaseConfig;
+import br.com.cauezito.whatsapp.model.User;
 
 public class UserFirebase {
 
@@ -63,5 +64,19 @@ public class UserFirebase {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public static User getUserOn() {
+        FirebaseUser auth = getUser();
+
+        User user = new User();
+        user.setEmail(auth.getEmail());
+        user.setName(auth.getDisplayName());
+
+        if (auth.getPhotoUrl() != null) {
+            user.setPhoto(auth.getPhotoUrl().toString());
+        }
+
+        return user;
     }
 }
