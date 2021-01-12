@@ -4,9 +4,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import br.com.cauezito.whatsapp.FirebaseEnum;
 import br.com.cauezito.whatsapp.config.FirebaseConfig;
+import br.com.cauezito.whatsapp.helper.UserFirebase;
 
 public class User implements Serializable {
     private String id;
@@ -20,6 +23,26 @@ public class User implements Serializable {
         DatabaseReference user = firebaseRef.child(FirebaseEnum.USERS.getName()).child(getId());
 
         user.setValue(this);
+    }
+
+    public void update() {
+        String userId = UserFirebase.getUserId();
+        DatabaseReference databaseReference = FirebaseConfig.getDatabaseReference();
+        DatabaseReference userRef = databaseReference.child("users")
+                .child(userId);
+
+        userRef.updateChildren(userToMap());
+    }
+
+    @Exclude
+    private Map<String, Object> userToMap() {
+        HashMap<String, Object> map = new HashMap<>();
+
+        map.put("email", getEmail());
+        map.put("name", getName());
+        map.put("photo", getPhoto());
+
+        return map;
     }
 
     @Exclude
