@@ -110,9 +110,9 @@ public class SettingsActivity extends AppCompatActivity {
         ivSalvarNome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nome = edtName.getText().toString();
+                String name = edtName.getText().toString();
 
-                if (UserFirebase.changeName(nome)) {
+                if (UserFirebase.changeName(name)) {
                     Toast.makeText(SettingsActivity.this, "Success!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(SettingsActivity.this, "Failed! Pls, try again.", Toast.LENGTH_SHORT).show();
